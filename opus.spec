@@ -4,7 +4,7 @@
 #
 Name     : opus
 Version  : 1.1.2
-Release  : 1
+Release  : 2
 URL      : http://downloads.xiph.org/releases/opus/opus-1.1.2.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.1.2.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
@@ -41,11 +41,11 @@ lib components for the opus package.
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
-%configure --disable-static
+export CFLAGS="$CFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
+export FCFLAGS="$CFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
+export FFLAGS="$CFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
+export CXXFLAGS="$CXXFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
+%configure --disable-static --enable-intrinsics --enable-float-approx
 make V=1  %{?_smp_mflags}
 
 %check
