@@ -4,13 +4,15 @@
 #
 Name     : opus
 Version  : 1.1.2
-Release  : 4
+Release  : 5
 URL      : http://downloads.xiph.org/releases/opus/opus-1.1.2.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.1.2.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
 Group    : Development/Tools
 License  : BSD-3-Clause
 Requires: opus-lib
+Requires: opus-doc
+BuildRequires : doxygen
 
 %description
 == Opus audio codec ==
@@ -24,6 +26,14 @@ Provides: opus-devel
 
 %description dev
 dev components for the opus package.
+
+
+%package doc
+Summary: doc components for the opus package.
+Group: Documentation
+
+%description doc
+doc components for the opus package.
 
 
 %package lib
@@ -41,10 +51,10 @@ lib components for the opus package.
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
-export FCFLAGS="$CFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
-export FFLAGS="$CFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
-export CXXFLAGS="$CXXFLAGS -falign-functions=32 -O3 -fno-semantic-interposition -flto "
+export CFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
 %configure --disable-static --enable-intrinsics --enable-float-approx
 make V=1  %{?_smp_mflags}
 
@@ -70,6 +80,11 @@ rm -rf %{buildroot}
 /usr/lib64/*.so
 /usr/lib64/pkgconfig/*.pc
 /usr/share/aclocal/*.m4
+
+%files doc
+%defattr(-,root,root,-)
+%doc /usr/share/doc/opus/*
+%doc /usr/share/man/man3/*
 
 %files lib
 %defattr(-,root,root,-)
