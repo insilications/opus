@@ -51,10 +51,10 @@ lib components for the opus package.
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition -march=sandybridge"
+export FCFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition -march=sandybridge "
+export FFLAGS="$CFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition -march=sandybridge "
+export CXXFLAGS="$CXXFLAGS -falign-functions=32 -flto -O3 -fno-semantic-interposition -march=sandybridge "
 %configure --disable-static --enable-intrinsics --enable-float-approx
 make V=1  %{?_smp_mflags}
 
