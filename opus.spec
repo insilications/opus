@@ -4,7 +4,7 @@
 #
 Name     : opus
 Version  : 1.1.4
-Release  : 7
+Release  : 8
 URL      : http://downloads.xiph.org/releases/opus/opus-1.1.4.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.1.4.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
@@ -49,7 +49,7 @@ lib components for the opus package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1485011936
+export SOURCE_DATE_EPOCH=1487721907
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -65,7 +65,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1485011936
+export SOURCE_DATE_EPOCH=1487721907
 rm -rf %{buildroot}
 %make_install
 
