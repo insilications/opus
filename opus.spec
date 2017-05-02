@@ -4,7 +4,7 @@
 #
 Name     : opus
 Version  : 1.1.4
-Release  : 8
+Release  : 9
 URL      : http://downloads.xiph.org/releases/opus/opus-1.1.4.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.1.4.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
