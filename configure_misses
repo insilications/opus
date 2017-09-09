@@ -1,4 +1,1 @@
-Configure miss: clang option to accept ISO C89
-Configure miss: if clang static flag -static works
-Configure miss: clang option to accept ISO C99
 Configure miss: if compiler supports AVX intrinsics

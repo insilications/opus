@@ -4,7 +4,7 @@
 #
 Name     : opus
 Version  : 1.2.1
-Release  : 13
+Release  : 14
 URL      : http://downloads.xiph.org/releases/opus/opus-1.2.1.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.2.1.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
@@ -14,7 +14,6 @@ Requires: opus-lib
 Requires: opus-doc
 BuildRequires : doxygen
 BuildRequires : graphviz
-BuildRequires : llvm-dev
 
 %description
 == Opus audio codec ==
@@ -54,11 +53,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1501751191
-export CC=clang
-export CXX=clang++
-export LD=ld.gold
-unset LDFLAGS
+export SOURCE_DATE_EPOCH=1504923157
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 %configure --disable-static --enable-intrinsics --enable-float-approx
 make V=1  %{?_smp_mflags}
 
@@ -70,7 +69,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1501751191
+export SOURCE_DATE_EPOCH=1504923157
 rm -rf %{buildroot}
 %make_install
 
