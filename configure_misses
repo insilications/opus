@@ -1,1 +1,2 @@
 Configure miss: if compiler supports AVX intrinsics
+Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CFLAGS
