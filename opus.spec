@@ -4,7 +4,7 @@
 #
 Name     : opus
 Version  : 1.3
-Release  : 17
+Release  : 19
 URL      : http://downloads.xiph.org/releases/opus/opus-1.3.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.3.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
@@ -56,13 +56,16 @@ license components for the opus package.
 
 %prep
 %setup -q -n opus-1.3
+pushd ..
+cp -a opus-1.3 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539903614
+export SOURCE_DATE_EPOCH=1539907137
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -70,18 +73,31 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 %configure --disable-static --enable-intrinsics --enable-float-approx
 make  %{?_smp_mflags}
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=haswell"
+export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
+export LDFLAGS="$LDFLAGS -m64 -march=haswell"
+%configure --disable-static --enable-intrinsics --enable-float-approx
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
+cd ../buildavx2;
+make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1539903614
+export SOURCE_DATE_EPOCH=1539907137
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/opus
 cp COPYING %{buildroot}/usr/share/package-licenses/opus/COPYING
+pushd ../buildavx2/
+%make_install_avx2
+popd
 %make_install
 
 %files
@@ -94,6 +110,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/opus/COPYING
 /usr/include/opus/opus_multistream.h
 /usr/include/opus/opus_projection.h
 /usr/include/opus/opus_types.h
+/usr/lib64/haswell/libopus.so
 /usr/lib64/libopus.so
 /usr/lib64/pkgconfig/opus.pc
 /usr/share/aclocal/*.m4
@@ -120,6 +137,8 @@ cp COPYING %{buildroot}/usr/share/package-licenses/opus/COPYING
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/haswell/libopus.so.0
+/usr/lib64/haswell/libopus.so.0.7.0
 /usr/lib64/libopus.so.0
 /usr/lib64/libopus.so.0.7.0
 
