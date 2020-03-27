@@ -4,7 +4,7 @@
 #
 Name     : opus
 Version  : 1.3.1
-Release  : 20
+Release  : 21
 URL      : http://downloads.xiph.org/releases/opus/opus-1.3.1.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.3.1.tar.gz
 Summary  : Totally open, royalty-free, highly versatile audio codec
