@@ -1,5 +1,5 @@
 PKG_NAME := opus
-URL = http://downloads.xiph.org/releases/opus/opus-1.3.1.tar.gz
+URL = https://github.com/xiph/opus.git
 ARCHIVES = 
 
 include ../common/Makefile.common

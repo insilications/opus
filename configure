@@ -1,1 +1,1 @@
---enable-intrinsics --enable-float-approx 
+--enable-shared --enable-static --enable-intrinsics --enable-float-approx --enable-doc --enable-check-asm --enable-asm --disable-maintainer-mode --disable-hardening --enable-custom-modes
