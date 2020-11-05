@@ -4,10 +4,10 @@
 #
 Name     : opus
 Version  : 1.3.1
-Release  : 21
+Release  : 22
 URL      : http://downloads.xiph.org/releases/opus/opus-1.3.1.tar.gz
 Source0  : http://downloads.xiph.org/releases/opus/opus-1.3.1.tar.gz
-Summary  : Totally open, royalty-free, highly versatile audio codec
+Summary  : Opus IETF audio codec (@PC_BUILD@ build)
 Group    : Development/Tools
 License  : BSD-3-Clause
 Requires: opus-lib = %{version}-%{release}
@@ -57,6 +57,7 @@ license components for the opus package.
 
 %prep
 %setup -q -n opus-1.3.1
+cd %{_builddir}/opus-1.3.1
 pushd ..
 cp -a opus-1.3.1 buildavx2
 popd
@@ -65,12 +66,13 @@ popd
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1555122888
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604605864
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$FFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static --enable-intrinsics --enable-float-approx
 make  %{?_smp_mflags}
 
@@ -78,24 +80,26 @@ unset PKG_CONFIG_PATH
 pushd ../buildavx2/
 export CFLAGS="$CFLAGS -m64 -march=haswell"
 export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
+export FFLAGS="$FFLAGS -m64 -march=haswell"
+export FCFLAGS="$FCFLAGS -m64 -march=haswell"
 export LDFLAGS="$LDFLAGS -m64 -march=haswell"
 %configure --disable-static --enable-intrinsics --enable-float-approx
 make  %{?_smp_mflags}
 popd
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 cd ../buildavx2;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1555122888
+export SOURCE_DATE_EPOCH=1604605864
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/opus
-cp COPYING %{buildroot}/usr/share/package-licenses/opus/COPYING
+cp %{_builddir}/opus-1.3.1/COPYING %{buildroot}/usr/share/package-licenses/opus/dfada97ba32cb44804736a7768104a06be91a4f7
 pushd ../buildavx2/
 %make_install_avx2
 popd
@@ -145,4 +149,4 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/opus/COPYING
+/usr/share/package-licenses/opus/dfada97ba32cb44804736a7768104a06be91a4f7
