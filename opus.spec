@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : opus
 Version  : 1.3
-Release  : 30
+Release  : 51
 URL      : file:///aot/build/clearlinux/packages/opus/opus-v1.3.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/opus/opus-v1.3.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
@@ -89,7 +89,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620557211
+export SOURCE_DATE_EPOCH=1620559030
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -172,7 +172,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1
 
 
 %install
-export SOURCE_DATE_EPOCH=1620557211
+export SOURCE_DATE_EPOCH=1620559030
 rm -rf %{buildroot}
 %make_install
 
