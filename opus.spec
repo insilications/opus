@@ -4,15 +4,14 @@
 #
 %define keepstatic 1
 Name     : opus
-Version  : 1.3
+Version  : 1.3.2
 Release  : 51
-URL      : file:///aot/build/clearlinux/packages/opus/opus-v1.3.tar.gz
-Source0  : file:///aot/build/clearlinux/packages/opus/opus-v1.3.tar.gz
+URL      : file:///aot/build/clearlinux/packages/opus/opus-v1.3.2.tar.gz
+Source0  : file:///aot/build/clearlinux/packages/opus/opus-v1.3.2.tar.gz
 Summary  : Opus IETF audio codec (@PC_BUILD@ build)
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: opus-lib = %{version}-%{release}
-Requires: opus-man = %{version}-%{release}
 BuildRequires : buildreq-meson
 BuildRequires : doxygen
 BuildRequires : findutils
@@ -37,29 +36,12 @@ Requires: opus = %{version}-%{release}
 dev components for the opus package.
 
 
-%package doc
-Summary: doc components for the opus package.
-Group: Documentation
-Requires: opus-man = %{version}-%{release}
-
-%description doc
-doc components for the opus package.
-
-
 %package lib
 Summary: lib components for the opus package.
 Group: Libraries
 
 %description lib
 lib components for the opus package.
-
-
-%package man
-Summary: man components for the opus package.
-Group: Default
-
-%description man
-man components for the opus package.
 
 
 %package staticdev
@@ -89,7 +71,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620559030
+export SOURCE_DATE_EPOCH=1620612580
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -172,7 +154,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1
 
 
 %install
-export SOURCE_DATE_EPOCH=1620559030
+export SOURCE_DATE_EPOCH=1620612580
 rm -rf %{buildroot}
 %make_install
 
@@ -191,33 +173,10 @@ rm -rf %{buildroot}
 /usr/lib64/pkgconfig/opus.pc
 /usr/share/aclocal/*.m4
 
-%files doc
-%defattr(0644,root,root,0755)
-%doc /usr/share/doc/opus/*
-
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libopus.so.0
 /usr/lib64/libopus.so.0.8.0
-
-%files man
-%defattr(0644,root,root,0755)
-/usr/share/man/man3/opus_ctlvalues.3
-/usr/share/man/man3/opus_custom.3
-/usr/share/man/man3/opus_custom.h.3
-/usr/share/man/man3/opus_decoder.3
-/usr/share/man/man3/opus_decoderctls.3
-/usr/share/man/man3/opus_defines.h.3
-/usr/share/man/man3/opus_encoder.3
-/usr/share/man/man3/opus_encoderctls.3
-/usr/share/man/man3/opus_errorcodes.3
-/usr/share/man/man3/opus_genericctls.3
-/usr/share/man/man3/opus_libinfo.3
-/usr/share/man/man3/opus_multistream.3
-/usr/share/man/man3/opus_multistream.h.3
-/usr/share/man/man3/opus_multistream_ctls.3
-/usr/share/man/man3/opus_repacketizer.3
-/usr/share/man/man3/opus_types.h.3
 
 %files staticdev
 %defattr(-,root,root,-)
