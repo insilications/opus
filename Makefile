@@ -1,5 +1,5 @@
 PKG_NAME := opus
-URL = https://github.com/xiph/opus.git
+URL = https://gitlab.xiph.org/xiph/opus.git
 ARCHIVES = 
 ARCHIVES_GIT = 
 
